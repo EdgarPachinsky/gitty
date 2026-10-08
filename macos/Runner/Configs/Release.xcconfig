@@ -1,0 +1,11 @@
+#include "../../Flutter/Flutter-Release.xcconfig"
+#include "Warnings.xcconfig"
+
+// Work around Flutter 3.44.1's release_unpack_macos check, which expects the
+// framework's architectures as "arm64 x86_64" while lipo lists them as
+// "x86_64 arm64", failing every universal release build. Building for Apple
+// silicon only sidesteps it (fine for a personal build). Not
+// $(NATIVE_ARCH_ACTUAL): on newer Macs that is "arm64e", which Flutter's
+// engine isn't built for. Remove once `flutter build macos --release` works
+// without it.
+ARCHS = arm64
